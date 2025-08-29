@@ -21,10 +21,9 @@ fn pid_info<T>(
 
     match result {
         value if value <= 0 => Err(io::Error::last_os_error()),
-        value if value != size => Err(io::Error::new(
-            io::ErrorKind::Other,
-            "invalid value returned",
-        )),
+        value if value != size => {
+            Err(io::Error::other("invalid value returned"))
+        }
         _ => unsafe { Ok(info.assume_init()) },
     }
 }

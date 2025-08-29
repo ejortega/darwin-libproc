@@ -15,7 +15,7 @@ pub fn pid_cwd(pid: libc::pid_t) -> io::Result<PathBuf> {
             vnode_path.pvi_cdir.vip_path.len(),
         )
     };
-    let first_null = memchr::memchr(0x00, &raw_path).unwrap_or(0);
+    let first_null = memchr::memchr(0x00, raw_path).unwrap_or(0);
 
     let os_str = OsStr::from_bytes(&raw_path[..first_null]);
 
